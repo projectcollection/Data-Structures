@@ -115,15 +115,11 @@ class DoublyLinkedList:
       self.tail = None
       self.length = 0
     elif self.head == node:
-      print('node is head')
       self.remove_from_head()
     elif self.tail == node:
-      print('node is tail')
       self.remove_from_tail()
     else:
       node.delete()
-
-    print('IN DELETE', self.head, self.tail)
     
   def get_max(self):
     curr_max = self.head.value
