@@ -44,25 +44,67 @@ class DoublyLinkedList:
     return self.length
 
   def add_to_head(self, value):
-    pass
+    self.head.insert_before(value)   
+    self.head = self.head.prev
+    self.length = self.length + 1
 
   def remove_from_head(self):
-    pass
+    if self.head:
+      new_node = None
+      if self.head.next:
+        new_node = self.head.next
+      self.head.delete()
+      self.head = new_node
+
+    self.length = self.length - 1
 
   def add_to_tail(self, value):
-    pass
+    self.tail.insert_after(value)  
+    self.tail = self.tail.next
+    self.length = self.length + 1
 
   def remove_from_tail(self):
-    pass
+    if self.tail:
+      new_tail = self.tail.prev
+      self.tail.delete()
+      self.tail = new_tail
+
+    self.length = self.length - 1
 
   def move_to_front(self, node):
-    pass
+    if self.tail == node:
+      self.remove_from_tail()
+    else:
+      self.length = self.length - 1
+    to_move = node.value
+    self.add_to_head(to_move)
+    node.delete()
 
   def move_to_end(self, node):
-    pass
+    if self.head == node:
+      self.remove_from_head()
+    else:
+      self.length = self.length - 1
+    to_move = node.value
+    node.delete()
+    self.add_to_tail(to_move)
 
   def delete(self, node):
-    pass
+    if self.head == node:
+      self.remove_from_head()
+    elif self.tail == node:
+      self.remove_from_tail()
+    else:
+      node.delete()
+
+    print('IN DELETE', self.head, self.tail)
     
   def get_max(self):
-    pass
+    curr_max = self.head.value
+    curr_node = self.head
+    while curr_node:
+      if curr_node.value > curr_max:
+        curr_max = curr_node.value
+      curr_node = curr_node.next
+    
+    return curr_max
